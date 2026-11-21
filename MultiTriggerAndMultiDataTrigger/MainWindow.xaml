@@ -5,8 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MultiTriggerAndMultiDataTrigger"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MultiTrigger and MultiDataTrigger in WPF" Height="450" Width="800">
 
-    </Grid>
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <CheckBox Name="cbSampleYes" Content="Yes" />
+        <CheckBox Name="cbSampleSure" Content="I'm sure" />
+        <TextBlock HorizontalAlignment="Center" Margin="0,20,0,0" FontSize="28">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Text" Value="Unverified" />
+                    <Setter Property="Foreground" Value="Red" />
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=cbSampleYes, Path=IsChecked}" Value="True" />
+                                <Condition Binding="{Binding ElementName=cbSampleSure, Path=IsChecked}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Text" Value="Verified" />
+                                <Setter Property="Foreground" Value="Green" />
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+    </StackPanel>
+    
 </Window>
